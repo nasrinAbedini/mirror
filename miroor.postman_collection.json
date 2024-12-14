@@ -1,0 +1,106 @@
+{
+	"id": "71e3c62f-6d3b-6e90-e281-351efedd11d7",
+	"name": "miroor",
+	"description": "",
+	"order": [
+		"b83c5592-af0a-2d7b-39f5-7b28e67e19e3",
+		"706bec28-bd0b-b714-5cdc-cd8532ea3bf6"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1733846183057,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "706bec28-bd0b-b714-5cdc-cd8532ea3bf6",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:4545/event/getInfo?user_id=1&start_time=2024-12-12&end_time=2024-12-13",
+			"queryParams": [
+				{
+					"key": "user_id",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "start_time",
+					"value": "2024-12-12",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "end_time",
+					"value": "2024-12-13",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [
+				{
+					"key": "scProductId",
+					"value": "1076566",
+					"type": "text"
+				},
+				{
+					"key": "scApiKey",
+					"value": "",
+					"description": "scApiKey+DepositNumber",
+					"type": "text"
+				},
+				{
+					"key": "request",
+					"value": "{\n  \"Amount\": \"100\",\n  \"DestinationIban\": \"\",\n  \"RecieverFullName\": \"\",\n  \"TransactionDate\": \"1401/08/15\",\n  \"SourceDepNum\": \"\",\n  \"Description\": \"انتقال پایا\",\n  \"TransactionId\": \"\",\n  \"IsAutoVerify\": true,\n  \"SrcComment\": \"انتقال وجه \",\n  \"senderReturnDepositNumber\": \"\",\n  \"CustomerNumber\": \"\",\n  \"DestBankCode\": \"57\",\n  \"TransactionBillNumber\": \"\",\n  \"SourceTMBillNumber\": \"*\"\n}",
+					"description": "تاریخ انتخابی باید تاریخ روز جاری باشد",
+					"type": "text"
+				}
+			],
+			"dataMode": "urlencoded",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1734040253616,
+			"name": "getDetail",
+			"description": "",
+			"collectionId": "71e3c62f-6d3b-6e90-e281-351efedd11d7",
+			"responses": []
+		},
+		{
+			"id": "b83c5592-af0a-2d7b-39f5-7b28e67e19e3",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:4545/event/send",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1733982621304,
+			"name": "send",
+			"description": "",
+			"collectionId": "71e3c62f-6d3b-6e90-e281-351efedd11d7",
+			"responses": [],
+			"rawModeData": "{\n    \"users_activities\": [\n        {\n  \"user_id\": 123,\n  \"activities\": [\n    {\n      \"activity_type\": \"task\",\n      \"activity_duration\": 90,\n      \"start_time\": \"2024-12-10T09:00:00Z\",\n      \"end_time\": \"2024-12-10T10:30:00Z\",\n      \"priority_level\": \"HIGH\",\n      \"description\": \"Worked on project A\"\n    },\n    {\n      \"activity_type\": \"break\",\n      \"activity_duration\": 15,\n      \"start_time\": \"2024-12-10T10:30:00Z\",\n      \"end_time\": \"2024-12-10T10:45:00Z\",\n      \"priority_level\": \"LOW\",\n      \"description\": \"Coffee break\"\n    },\n    {\n      \"activity_type\": \"meeting\",\n      \"activity_duration\": 60,\n      \"start_time\": \"2024-12-10T11:00:00Z\",\n      \"end_time\": \"2024-12-10T12:00:00Z\",\n      \"priority_level\": \"MEDIUM\",\n      \"description\": \"Team sync-up meeting\"\n    }\n  ]\n},\n{\n  \"user_id\": 1,\n  \"activities\": [\n    {\n      \"activity_type\": \"task\",\n      \"activity_duration\": 90,\n      \"start_time\": \"2024-12-10T09:00:00Z\",\n      \"end_time\": \"2024-12-10T10:30:00Z\",\n      \"priority_level\": \"HIGH\",\n      \"description\": \"Worked on project A\"\n    },\n    {\n      \"activity_type\": \"break\",\n      \"activity_duration\": 15,\n      \"start_time\": \"2024-12-10T10:30:00Z\",\n      \"end_time\": \"2024-12-10T10:45:00Z\",\n      \"priority_level\": \"LOW\",\n      \"description\": \"Coffee break\"\n    },\n    {\n      \"activity_type\": \"meeting\",\n      \"activity_duration\": 60,\n      \"start_time\": \"2024-12-10T11:00:00Z\",\n      \"end_time\": \"2024-12-10T12:00:00Z\",\n      \"priority_level\": \"MEDIUM\",\n      \"description\": \"Team sync-up meeting\"\n    }\n  ]\n}\n    ]\n}\n\n"
+		}
+	]
+}

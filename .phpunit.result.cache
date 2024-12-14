@@ -1,0 +1,1 @@
+{"version":1,"defects":{"IntegrationTest::testDatabaseAndRabbitMqConnections":4,"App\\Tests\\WorkerTaskTest::testMainAction":4,"App\\Tests\\WorkerTaskTest::testProcessMessage":4},"times":{"IntegrationTest::testDatabaseAndRabbitMqConnections":0,"App\\Tests\\WorkerTaskTest::testMainAction":0,"App\\Tests\\WorkerTaskTest::testProcessMessage":0}}

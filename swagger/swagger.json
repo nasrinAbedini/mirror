@@ -1,0 +1,268 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Phalcon API",
+    "version": "1.0.0",
+    "description": "API Documentation for Phalcon Application"
+  },
+  "servers": [
+    {
+      "url": "http://web",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/event": {
+      "get": {
+        "summary": "Get default event message",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Welcome to the Event API!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/getInfo": {
+      "get": {
+        "summary": "Get activities for a specific user in a time range",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the user."
+          },
+          {
+            "name": "start_time",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "The start time for filtering activities."
+          },
+          {
+            "name": "end_time",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "The end time for filtering activities."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of activities within the specified time range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "activity_type": {
+                            "type": "string"
+                          },
+                          "activity_duration": {
+                            "type": "integer"
+                          },
+                          "start_time": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "end_time": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "priority_level": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid user_id or time range."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/send": {
+      "post": {
+        "summary": "Send a batch of messages to RabbitMQ",
+        "description": "Accepts a batch of user activities and publishes them to a RabbitMQ queue.",
+        "tags": ["Event"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "users_activities": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "user_id": {
+                          "type": "integer"
+                        },
+                        "activities": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "activity_type": {
+                                "type": "string"
+                              },
+                              "activity_duration": {
+                                "type": "integer"
+                              },
+                              "start_time": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "end_time": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "priority_level": {
+                                "type": "string",
+                                "enum": ["LOW", "MEDIUM", "HIGH"]
+                              },
+                              "description": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "activity_type",
+                              "activity_duration",
+                              "start_time",
+                              "end_time",
+                              "priority_level",
+                              "description"
+                            ]
+                          }
+                        }
+                      },
+                      "required": ["user_id", "activities"]
+                    }
+                  }
+                },
+                "required": ["users_activities"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Batch added to RabbitMQ successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid batch data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid batch data. Expected an array of users_activities."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid request method",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid request method. Only POST is allowed."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "An error occurred while processing the request."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
